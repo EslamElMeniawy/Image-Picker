@@ -131,6 +131,12 @@ dependencies {
     // For HTTP logging.
     implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
 
+    // Picasso.
+    // Images add much-needed context and visual flair to Android applications.
+    // Picasso allows for hassle-free image loading in your application
+    // often in one line of code.
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     // Shape Image View.
     // Custom shaped android image view components.
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
