@@ -9,6 +9,7 @@ apply plugin: 'kotlin-kapt'
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += ["-Xuse-experimental=kotlin.time.ExperimentalTime"]
     }
 }
 
@@ -94,7 +95,7 @@ dependencies {
     // LiveData & ViewModel.
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
 
     // Navigation.
     // The Navigation Architecture Component.

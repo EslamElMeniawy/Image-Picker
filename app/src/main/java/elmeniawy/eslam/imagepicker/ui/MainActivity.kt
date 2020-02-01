@@ -1,7 +1,8 @@
-package elmeniawy.eslam.imagepicker
+package elmeniawy.eslam.imagepicker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import elmeniawy.eslam.imagepicker.R
 
 class MainActivity : AppCompatActivity() {
 
