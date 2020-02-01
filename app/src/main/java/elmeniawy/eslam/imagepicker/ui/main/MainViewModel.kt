@@ -58,12 +58,17 @@ class MainViewModel(
         }
     }
 
-    fun onActivityResult(requestCode: Int, queryImageUrl: String) {
+    fun onActivityResult(requestCode: Int, file: File?) {
         when (requestCode) {
             IMAGE_REQUEST_CODE -> {
-                Timber.d("ReturnedPath: $queryImageUrl")
-                imageUri.value = queryImageUrl
-                uploadPhoto(File(queryImageUrl))
+                Timber.d("ReturnedFile: $file")
+
+                if (file!=null) {
+                    imageUri.value = file.absolutePath
+                    uploadPhoto(file)
+                } else {
+                    errorMessageId.value = R.string.error_get_file
+                }
             }
         }
     }

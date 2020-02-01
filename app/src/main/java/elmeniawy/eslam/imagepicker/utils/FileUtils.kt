@@ -50,17 +50,37 @@ fun getPickImageIntent(context: Context?): Intent? {
     return chooserIntent
 }
 
-fun getImagePath(context: Context?): String {
+fun getFileFromUri(context: Context?, uri: Uri): File? {
     val imageFile = getImageFile(context)
 
-    if (imageFile != null) {
-        return imageFile.absolutePath
+    if (context != null && imageFile != null) {
+        val inputStream = context.contentResolver.openInputStream(uri)
+
+        inputStream.use { input ->
+            val outputStream = FileOutputStream(imageFile)
+
+            outputStream.use { output ->
+                val buffer = ByteArray(4 * 1024) // buffer size
+
+                while (true) {
+                    val byteCount = input?.read(buffer)
+
+                    if (byteCount != null) {
+                        if (byteCount < 0) break
+                        output.write(buffer, 0, byteCount)
+                    }
+                }
+
+                output.flush()
+                return imageFile
+            }
+        }
     }
 
-    return ""
+    return null
 }
 
-private fun getImageFile(context: Context?): File? {
+fun getImageFile(context: Context?): File? {
     if (context != null) {
         val pathname =
             "${context.getExternalFilesDir(Environment.DIRECTORY_DCIM)}"
@@ -75,6 +95,21 @@ private fun getImageFile(context: Context?): File? {
     }
 
     return null
+}
+
+fun getExtension(filePath: String?): String? {
+    if (filePath == null) {
+        return null
+    }
+
+    val dot = filePath.lastIndexOf(".")
+
+    return if (dot >= 0) {
+        filePath.substring(dot)
+    } else {
+        // No extension.
+        ""
+    }
 }
 
 private fun getImageUri(context: Context?): Uri {

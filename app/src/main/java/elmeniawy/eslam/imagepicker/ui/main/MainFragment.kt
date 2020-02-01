@@ -66,19 +66,15 @@ class MainFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-            val queryImageUrl = if (data?.data != null) {
+            val imageFile = if (data?.data != null) {
                 //Photo from gallery.
-                //val imageUri = data.data
-                //imageUri?.path ?: ""
-                data.data.toString()
+                getFileFromUri(context,data.data!!)
             } else {
                 //Photo from camera.
-                getImagePath(context)
+                getImageFile(context)
             }
 
-            if (queryImageUrl.isNotEmpty()) {
-                viewModel.onActivityResult(requestCode, queryImageUrl)
-            }
+            viewModel.onActivityResult(requestCode, imageFile)
         }
     }
 
@@ -127,7 +123,11 @@ class MainFragment : Fragment() {
             showPicker?.let {
                 if (showPicker) {
                     viewModel.checkCameraPermission.value = null
-                    startActivityForResult(getPickImageIntent(context), IMAGE_REQUEST_CODE)
+
+                    startActivityForResult(
+                        getPickImageIntent(context),
+                        IMAGE_REQUEST_CODE
+                    )
                 }
             }
         })

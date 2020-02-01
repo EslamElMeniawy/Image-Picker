@@ -3,4 +3,5 @@
     <string name="file_provider_name" translatable="false">.fileProvider</string>
     <string name="select_capture_image">Please select or capture image</string>
     <string name="camera_permission_required">Camera permission is required for completing image picking process</string>
+    <string name="error_get_file">Error while getting file</string>
 </resources>

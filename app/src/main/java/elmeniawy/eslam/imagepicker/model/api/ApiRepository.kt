@@ -1,6 +1,8 @@
 package elmeniawy.eslam.imagepicker.model.api
 
 import elmeniawy.eslam.imagepicker.model.data_classes.UploadResponse
+import elmeniawy.eslam.imagepicker.utils.RandomString
+import elmeniawy.eslam.imagepicker.utils.getExtension
 import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
 import java.io.File
@@ -20,7 +22,7 @@ class ApiRepository(private val apiService: ApiService) : ApiRepo {
 
         val photoPart: MultipartBody.Part = MultipartBody.Part.createFormData(
             "FileData",
-            "IMG.jpg",
+            RandomString().nextString() + getExtension(photo.absolutePath),
             imageRequestFile
         )
 
