@@ -14,5 +14,37 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+        <com.github.siyamed.shapeimageview.CircularImageView
+            android:id="@+id/iv_selected_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:imageUri="@{viewModel.imageUri}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5"
+            app:siBorderAlpha="0.5"
+            app:siBorderColor="?attr/colorPrimary"
+            app:siBorderWidth="1dp"
+            tools:src="@drawable/placeholder" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/secondary_oval"
+            android:onClick="@{() -> viewModel.addClicked()}"
+            android:padding="8dp"
+            android:tint="?attr/colorOnSecondary"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selected_image"
+            app:layout_constraintStart_toEndOf="@+id/iv_selected_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_selected_image"
+            app:srcCompat="@drawable/ic_add_black_40dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

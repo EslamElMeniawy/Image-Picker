@@ -1,5 +1,6 @@
 package elmeniawy.eslam.imagepicker.ui.main
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.squareup.moshi.Moshi
 import elmeniawy.eslam.imagepicker.model.api.ApiRepo
@@ -13,4 +14,11 @@ class MainViewModel(
     private val apiRepository: ApiRepo,
     private val moshi: Moshi
 ) : ViewModel() {
+    val imageUri: MutableLiveData<String> = MutableLiveData()
+
+    init {
+        imageUri.value = ""
+    }
+
+    fun addClicked() {}
 }

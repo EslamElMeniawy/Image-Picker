@@ -17,7 +17,7 @@
         <item name="colorPrimaryDark">@color/blue_grey_dark</item>
         <item name="colorPrimaryVariant">@color/blue_grey_light</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/amber</item>
         <item name="colorSecondaryVariant">@color/amber_light</item>
