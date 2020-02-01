@@ -71,9 +71,9 @@ private fun getImageFile(context: Context?): File? {
 
         val file = File(folder, "Image_Tmp.jpg")
 
-        if (file.exists()) {
-            file.delete()
-        }
+//        if (file.exists()) {
+//            file.delete()
+//        }
 
         Timber.d("ImageFile: $file")
         file.createNewFile()

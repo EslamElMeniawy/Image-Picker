@@ -8,7 +8,6 @@ import elmeniawy.eslam.imagepicker.model.api.ApiRepo
 import elmeniawy.eslam.imagepicker.utils.CAMERA_PERMISSION_REQUEST_CODE
 import elmeniawy.eslam.imagepicker.utils.IMAGE_REQUEST_CODE
 import timber.log.Timber
-import java.io.File
 
 /**
  * MainViewModel
@@ -19,14 +18,14 @@ class MainViewModel(
     private val apiRepository: ApiRepo,
     private val moshi: Moshi
 ) : ViewModel() {
-    val imageUri: MutableLiveData<File?> = MutableLiveData()
+    val imageUri: MutableLiveData<String> = MutableLiveData()
     val checkCameraPermission: MutableLiveData<Boolean> = MutableLiveData()
     val requestCameraPermission: MutableLiveData<Boolean> = MutableLiveData()
     val showPicker: MutableLiveData<Boolean> = MutableLiveData()
     val errorMessageId: MutableLiveData<Int> = MutableLiveData()
 
     init {
-        imageUri.value = null
+        imageUri.value = ""
     }
 
     fun addClicked() {
@@ -57,7 +56,7 @@ class MainViewModel(
         when (requestCode) {
             IMAGE_REQUEST_CODE -> {
                 Timber.d("ReturnedPath: $queryImageUrl")
-                //imageUri.value = file
+                imageUri.value = queryImageUrl
             }
         }
     }

@@ -131,13 +131,14 @@ dependencies {
     // For HTTP logging.
     implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
 
-    // Picasso.
-    // Images add much-needed context and visual flair to Android applications.
-    // Picasso allows for hassle-free image loading in your application
-    // often in one line of code.
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
     // Shape Image View.
     // Custom shaped android image view components.
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
+
+    // Glide.
+    // Glide is a fast and efficient open source media management and image loading framework for Android
+    // that wraps media decoding, memory and disk caching,
+    // and resource pooling into a simple and easy to use interface.
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 }

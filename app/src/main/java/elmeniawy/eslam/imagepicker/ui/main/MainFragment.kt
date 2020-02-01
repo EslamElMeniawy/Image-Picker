@@ -68,8 +68,9 @@ class MainFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             val queryImageUrl = if (data?.data != null) {
                 //Photo from gallery.
-                val imageUri = data.data
-                imageUri?.path ?: ""
+                //val imageUri = data.data
+                //imageUri?.path ?: ""
+                data.data.toString()
             } else {
                 //Photo from camera.
                 getImagePath(context)

@@ -1,18 +1,20 @@
 package elmeniawy.eslam.imagepicker.utils
 
-import android.graphics.drawable.Drawable
-import android.net.Uri
+import android.graphics.Bitmap
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import elmeniawy.eslam.imagepicker.R
 import elmeniawy.eslam.imagepicker.utils.extension.getParentActivity
 import timber.log.Timber
-import java.io.File
 
 /**
  * BindingAdapters
@@ -29,29 +31,49 @@ import java.io.File
 )
 fun bindingAdapterIV(
     view: ImageView,
-    imageUri: MutableLiveData<File?>?
+    imageUri: MutableLiveData<String>?
 ) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
 
     parentActivity?.let {
         imageUri?.let {
             imageUri.observe(parentActivity, Observer { value ->
-//                if (value==null) {
-//                    view.setImageResource(R.drawable.placeholder)
-//                } else {
-//                    //view.setImageDrawable(Drawable.createFromPath(value))
-//                    //view.setImageURI(Uri.fromFile(value))
-//                    //view.setImageDrawable(Drawable.createFromPath(value.absolutePath))
-//                    Picasso.get().load(value).into(view, object : Callback {
-//                        override fun onSuccess() {
-//                            Timber.v("Successfully loaded image: $value")
-//                        }
-//
-//                        override fun onError(e: Exception?) {
-//                            Timber.w(e, "Failed to load image: $value")
-//                        }
-//                    })
-//                }
+                value?.let {
+                    if (value.isNullOrBlank()) {
+                        view.setImageResource(R.drawable.placeholder)
+                    } else {
+                        Glide.with(view.context)
+                            .asBitmap()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .load(value)
+                            .listener(object : RequestListener<Bitmap> {
+                                override fun onResourceReady(
+                                    resource: Bitmap?,
+                                    model: Any?,
+                                    target: Target<Bitmap>?,
+                                    dataSource: DataSource?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    Timber.v("Successfully loaded image: %s", value)
+                                    return false
+                                }
+
+                                override fun onLoadFailed(
+                                    e: GlideException?,
+                                    model: Any?,
+                                    target: Target<Bitmap>?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    Timber.w(e, "Failed to load image: %s", value)
+                                    return false
+                                }
+                            })
+                            .into(view)
+                    }
+                }
             })
         }
     }
