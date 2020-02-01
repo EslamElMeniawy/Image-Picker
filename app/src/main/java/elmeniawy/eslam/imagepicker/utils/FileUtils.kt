@@ -68,13 +68,7 @@ private fun getImageFile(context: Context?): File? {
         Timber.d("ImageFilePath: $pathname")
         val folder = File(pathname)
         folder.mkdirs()
-
         val file = File(folder, "Image_Tmp.jpg")
-
-//        if (file.exists()) {
-//            file.delete()
-//        }
-
         Timber.d("ImageFile: $file")
         file.createNewFile()
         return file

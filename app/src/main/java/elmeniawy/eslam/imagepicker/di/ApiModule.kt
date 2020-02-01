@@ -106,7 +106,7 @@ val apiModule = module {
         val moshiConverterFactory: MoshiConverterFactory by inject()
 
         Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl("https://v2.convertapi.com/")
             .client(client)
             .addCallAdapterFactory(coroutineCallAdapterFactory)
             .addConverterFactory(moshiConverterFactory)
