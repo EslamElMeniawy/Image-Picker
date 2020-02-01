@@ -4,32 +4,139 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+
+    dataBinding {
+        enabled = true
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+
+        density {
+            enableSplit = true
+        }
+
+        abi {
+            enableSplit = true
+        }
+    }
+
     defaultConfig {
         applicationId "elmeniawy.eslam.imagepicker"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary true
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/notice.txt")
+        exclude("META-INF/ASL2.0")
+        exclude("META-INF/main.kotlin_module")
+        exclude("META-INF/atomicfu.kotlin_module")
+    }
 }
 
 dependencies {
+    // Libraries and jars.
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // Kotlin.
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    // Coroutines.
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // Androidx.
+    implementation 'androidx.core:core-ktx:1.3.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    // LiveData & ViewModel.
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // Navigation.
+    // The Navigation Architecture Component.
+    // Simplifies the implementation of navigation between destinations in your app.
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+
+    // Timber.
+    // Logger with a small, extensible API
+    // which provides utility on top of Android's normal Log class.
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Koin.
+    // Dependency injector.
+    implementation 'org.koin:koin-androidx-viewmodel:2.1.0-alpha-10'
+
+    // Retrofit.
+    // Type-safe HTTP client.
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    // Moshi Kotlin.
+    // Required by reflection adapter to add adapters to moshi.
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
+    // Moshi Adapters.
+    // For adding custom adapters to be used with moshi.
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+
+    // OkHttp Logging Interceptor.
+    // For HTTP logging.
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
+
+    // Picasso.
+    // Images add much-needed context and visual flair to Android applications.
+    // Picasso allows for hassle-free image loading in your application
+    // often in one line of code.
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Shape Image View.
+    // Custom shaped android image view components.
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
 }
